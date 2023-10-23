@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { NewsEntity } from "../../news/news.entity";
 
 @Entity('users')
 export class UserEntity {
@@ -13,4 +14,7 @@ export class UserEntity {
 
   @Column({ name: 'refresh_token', type: 'text', nullable: false })
   refreshToken: string;
+
+  @OneToMany(() => NewsEntity, (news) => news.author)
+  news: NewsEntity[];
 }
