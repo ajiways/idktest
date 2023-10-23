@@ -8,8 +8,10 @@ import { ConfigurationModule } from './modules/config/configuration.module';
 import { ConfigurationService } from './modules/config/configuration.service';
 import { APP_GUARD } from '@nestjs/core';
 import { TokenGuard } from './common/guards';
+import { NewsModule } from './modules/news/news.module';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
-const modules = [AuthModule, UserModule]
+const modules = [AuthModule, UserModule, NewsModule]
 
 @Module({
   imports: [
@@ -27,7 +29,8 @@ const modules = [AuthModule, UserModule]
         logging: false,
         autoLoadEntities: true,
         entities: ["dist/**/*.entity{.ts,.js}"],
-        migrations: ["dist/migrations/*{.ts,.js}"]
+        migrations: ["dist/migrations/*{.ts,.js}"],
+        namingStrategy: new SnakeNamingStrategy(),
       })
     }),
     ...modules,
